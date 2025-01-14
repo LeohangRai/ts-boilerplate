@@ -6,9 +6,5 @@ node_modules
 
 
 # configs
-config/default.yml
-config/development.yml
-config/production.yml
-config/default.yaml
-config/development.yaml
-config/production.yaml
+config/
+!config/default.sample.yml
