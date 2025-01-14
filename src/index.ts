@@ -1,5 +1,5 @@
 import 'dotenv/config'; // required for loading the 'NODE_ENV' environment variable
-import logger from './logger/logger';
+import logger from './utils/logging/logger';
 
 function greet() {
   logger.info('Hello World');
