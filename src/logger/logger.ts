@@ -123,6 +123,7 @@ export class LoggerSingleton {
       new DailyRotateFile({
         ...commonOpts,
         filename: `${logDir}/combined-%DATE%.log`,
+        format: fileLoggingFormatOptions,
       }),
       new DailyRotateFile({
         ...commonOpts,
