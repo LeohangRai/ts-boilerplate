@@ -1,9 +1,9 @@
 import winston, { Logform } from 'winston';
 import WinstonCloudwatch from 'winston-cloudwatch';
 import { APP_CONFIG, CLOUDWATCH_CONFIG } from '../config';
-const { combine, timestamp, json, colorize, align, printf } = winston.format;
+const { combine, timestamp, json, colorize, printf } = winston.format;
 
-const consoleLoggerFormatOptions: Logform.Format = combine(
+const consoleLoggingFormatOptions: Logform.Format = combine(
   timestamp({ format: 'YYYY-MM-DD hh:mm:ss.SSS A' }),
   json(),
   colorize({ all: true }),
@@ -14,6 +14,14 @@ const fileLoggingFormatOptions: Logform.Format = combine(
   timestamp({ format: 'YYYY-MM-DD hh:mm:ss.SSS A' }),
   json(),
 );
+
+const errorLogFilter = winston.format((info) => {
+  return info.level === 'error' ? info : false;
+});
+
+const infoLogFilter = winston.format((info) => {
+  return info.level === 'info' ? info : false;
+});
 
 export class LoggerSingleton {
   static instance: LoggerSingleton;
@@ -55,11 +63,21 @@ export class LoggerSingleton {
     }
     return [
       new winston.transports.Console({
-        format: consoleLoggerFormatOptions,
+        format: consoleLoggingFormatOptions,
       }),
       new winston.transports.File({
-        filename: '.logs/app.log',
+        filename: '.logs/combined.log',
         format: fileLoggingFormatOptions,
+      }),
+      new winston.transports.File({
+        filename: '.logs/error.log',
+        level: 'error',
+        format: combine(errorLogFilter(), fileLoggingFormatOptions),
+      }),
+      new winston.transports.File({
+        filename: '.logs/info.log',
+        level: 'info',
+        format: combine(infoLogFilter(), fileLoggingFormatOptions),
       }),
     ];
   }
