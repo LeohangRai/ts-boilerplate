@@ -1,5 +1,6 @@
 import winston, { Logform } from 'winston';
 import WinstonCloudwatch from 'winston-cloudwatch';
+import DailyRotateFile from 'winston-daily-rotate-file';
 import { APP_CONFIG, CLOUDWATCH_CONFIG } from '../config';
 const { combine, timestamp, json, colorize, printf } = winston.format;
 
@@ -65,19 +66,30 @@ export class LoggerSingleton {
       new winston.transports.Console({
         format: consoleLoggingFormatOptions,
       }),
-      new winston.transports.File({
-        filename: '.logs/combined.log',
-        format: fileLoggingFormatOptions,
+      new DailyRotateFile({
+        filename: `${APP_CONFIG.LOG_DIR}/combined-%DATE%.log`,
+        datePattern: 'YYYY-MM-DD', // controls how often the file should be rotated (everyday in this case)
+        zippedArchive: true,
+        maxSize: '20m', // maximum size of the file after which it will rotate (meaning, a new log file will be created)
+        maxFiles: '14d', // ensures that log files that are older than 14 days are automatically deleted
       }),
-      new winston.transports.File({
-        filename: '.logs/error.log',
+      new DailyRotateFile({
+        filename: `${APP_CONFIG.LOG_DIR}/error-%DATE%.log`,
         level: 'error',
         format: combine(errorLogFilter(), fileLoggingFormatOptions),
+        datePattern: 'YYYY-MM-DD',
+        zippedArchive: true,
+        maxSize: '10m',
+        maxFiles: '14d',
       }),
-      new winston.transports.File({
-        filename: '.logs/info.log',
+      new DailyRotateFile({
+        filename: `${APP_CONFIG.LOG_DIR}/info-%DATE%.log`,
         level: 'info',
         format: combine(infoLogFilter(), fileLoggingFormatOptions),
+        datePattern: 'YYYY-MM-DD',
+        zippedArchive: true,
+        maxSize: '10m',
+        maxFiles: '14d',
       }),
     ];
   }

@@ -2,6 +2,7 @@ import 'dotenv/config';
 
 export const APP_CONFIG = {
   NODE_ENV: process.env.NODE_ENV || 'development',
+  LOG_DIR: process.env.LOG_DIR || '.logs',
   ENABLE_CLOUDWATCH_LOGGING: process.env.ENABLE_CLOUDWATCH_LOGGING === 'true',
 };
 
