@@ -3,3 +3,8 @@ dist
 node_modules
 
 .logs/
+
+
+# configs
+config/default.yml
+config/default.yaml

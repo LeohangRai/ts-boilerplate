@@ -1,0 +1,24 @@
+app:
+  env: # anything other than 'production' will be treated as 'development'
+
+logging:
+  # the minimum severity of log entries to be written to the console or log file (debug < verbose < info < warn < error)
+  level: # default is 'debug' for development and 'info' for production
+  file_logs:
+    enable: # default is true
+    log_dir: # default is '.logs'
+    rotation:
+      enable: # default is false
+      max_size: # in MB (default is '10m')
+      max_age: # (default is '7d')
+  cloudwatch:
+    enable: # default is false
+    group_name:
+    stream_name:
+    region:
+    access_key_id:
+    secret_access_key:
+    # it is recommended to disable console and file logs when using CloudWatch
+    disable_console_logs: false # default is true
+    disable_file_logs: false # default is true
+
