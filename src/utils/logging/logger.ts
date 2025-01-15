@@ -87,7 +87,7 @@ export class LoggerSingleton {
     return [
       new winston.transports.File({
         filename: `${logDir}/combined.log`,
-        format: combine(fileLoggingFormatOptions),
+        format: fileLoggingFormatOptions,
       }),
       new winston.transports.File({
         filename: `${logDir}/error.log`,

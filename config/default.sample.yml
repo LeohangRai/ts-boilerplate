@@ -18,7 +18,7 @@ logging:
     region:
     access_key_id:
     secret_access_key:
-    # it is recommended to disable console and file logs when using CloudWatch
+    # it is recommended to disable console and file logs in production when using CloudWatch
     disable_console_logs: false # default is true
     disable_file_logs: false # default is true
 
