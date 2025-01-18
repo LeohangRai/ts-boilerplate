@@ -11,9 +11,6 @@ importers:
       '@aws-sdk/client-cloudwatch-logs':
         specifier: ^3.726.1
         version: 3.726.1
-      '@types/config':
-        specifier: ^3.3.5
-        version: 3.3.5
       config:
         specifier: ^3.3.12
         version: 3.3.12
@@ -36,6 +33,9 @@ importers:
       '@commitlint/config-conventional':
         specifier: ^19.6.0
         version: 19.6.0
+      '@types/config':
+        specifier: ^3.3.5
+        version: 3.3.5
       '@types/node':
         specifier: ^20.17.12
         version: 20.17.12
